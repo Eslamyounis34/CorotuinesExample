@@ -10,4 +10,9 @@
         android:title="Saved News"
         android:icon="@drawable/favoritesicon"
         />
+    <item
+        android:id="@+id/searchFragment"
+        android:title="Search"
+        android:icon="@drawable/search_icon"
+        />
 </menu>

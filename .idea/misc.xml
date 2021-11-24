@@ -3,15 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CoroutinsExample/app/src/main/res/drawable/news_icon.xml" value="0.175" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/layout/activity_article.xml" value="0.2" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/layout/activity_favourites_articles.xml" value="0.17916666666666667" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/layout/activity_main.xml" value="0.16822916666666668" />
-        <entry key="..\:/CoroutinsExample/app/src/main/res/layout/fragment_breaking_news.xml" value="0.17916666666666667" />
+        <entry key="..\:/CoroutinsExample/app/src/main/res/layout/fragment_breaking_news.xml" value="0.16" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/layout/fragment_saved_news.xml" value="0.17916666666666667" />
+        <entry key="..\:/CoroutinsExample/app/src/main/res/layout/fragment_search.xml" value="0.17083333333333334" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/layout/fragment_selected_article.xml" value="0.17916666666666667" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/layout/newsrecycleritemrow.xml" value="0.18333333333333332" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/menu/bottom_menu.xml" value="0.17916666666666667" />
         <entry key="..\:/CoroutinsExample/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18333333333333332" />
+        <entry key="..\:/CoroutinsExample/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.16666666666666666" />
       </map>
     </option>
   </component>

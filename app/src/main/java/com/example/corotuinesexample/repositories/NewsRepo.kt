@@ -15,7 +15,11 @@ class NewsRepo(private val db: NewsDao) {
     suspend fun getBreakingNews() =
         RetroInstance.api.getBreakingNews("us", "business", Constants.API_KEY)
 
+    suspend fun getSearchResult(query:String)=
+        RetroInstance.api.getSearchResult(Constants.API_KEY,query,"popularity")
+
     suspend fun insertArticle(article: Article) {
+
         db.insertArticle(article)
     }
 

@@ -14,28 +14,49 @@ import retrofit2.Response
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
     val _response = MutableLiveData<NewsResponse>()
     var _existance = MutableLiveData<Boolean>()
-   // var breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    val _searchResponse = MutableLiveData<NewsResponse>()
     private val newsRepo: NewsRepo
     lateinit var favoriteArticlesList: LiveData<List<Article>>
-    val articleList: LiveData<NewsResponse>
-        get() = _response
+//    val articleList: LiveData<NewsResponse>
+//        get() = _response
+//    private val searchList: LiveData<NewsResponse>
+//        get() = _searchResponse
+
 
     init {
         val favDao = NewsDataBase.getAppDataBase(application)!!.articleDao()
         newsRepo = NewsRepo(favDao)
-        getArticlesList()
+       // getArticlesList()
         getFavoriteNews()
     }
 
-    private fun getArticlesList() = viewModelScope.launch {
-        newsRepo.getBreakingNews().let { response ->
-            if (response.isSuccessful) {
-                _response.postValue(response.body())
-            } else {
-                Log.e("Show Error", response.message().toString())
+    fun getArticlesList():LiveData<NewsResponse> {
+        viewModelScope.launch {
+            newsRepo.getBreakingNews().let { response ->
+                if (response.isSuccessful) {
+                    _response.postValue(response.body())
+                } else {
+                    Log.e("Show Error", response.message().toString())
+                }
             }
         }
+        return _response
     }
+
+    fun searchResult(query: String): LiveData<NewsResponse> {
+        viewModelScope.launch {
+            newsRepo.getSearchResult(query).let { response ->
+                if (response.isSuccessful) {
+                    _searchResponse.postValue(response.body())
+                } else {
+                    _searchResponse.postValue(response.body())
+                }
+
+            }
+        }
+        return _searchResponse
+    }
+
 
     private fun getFavoriteNews(): Job = viewModelScope.launch {
         favoriteArticlesList = newsRepo.getFavoriteNews()

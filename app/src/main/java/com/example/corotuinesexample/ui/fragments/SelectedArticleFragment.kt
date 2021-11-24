@@ -1,5 +1,9 @@
 package com.example.corotuinesexample.ui.fragments
 
+import android.content.Context
+import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +16,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.corotuinesexample.R
 import com.example.corotuinesexample.databinding.FragmentSavedNewsBinding
 import com.example.corotuinesexample.databinding.FragmentSelectedArticleBinding
@@ -23,7 +28,7 @@ import com.younis.newapp.model.Article
 class SelectedArticleFragment : Fragment() {
 
     val args: SelectedArticleFragmentArgs by navArgs()
-
+    lateinit var errorSweetAlert: SweetAlertDialog
     lateinit var article: Article
     lateinit var viewModel: NewsViewModel
     lateinit var binding: FragmentSelectedArticleBinding
@@ -35,18 +40,57 @@ class SelectedArticleFragment : Fragment() {
 
         binding = FragmentSelectedArticleBinding.inflate(layoutInflater)
         val view = binding.root
-        val article = args.article
+        if (isNetworkAvailable()) {
+            val article = args.article
 
-        viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-        binding.webview
-            .apply {
-                settings.javaScriptEnabled = true
-                webViewClient = WebViewClient()
-                if (article != null) {
-                    loadUrl(article.url.toString())
-                }
+            viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+
+            checkFavorits(article!!.url.toString())
+            loadArticleUrl(article!!.url.toString())
+            binding.insertButton.setOnClickListener {
+                insertArticle(article!!)
             }
-        viewModel.isExisted(article?.url.toString()).observe(viewLifecycleOwner, Observer {
+
+        } else {
+            setupErrorSweetAlert()
+        }
+        return view
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
+    }
+
+    private fun setupErrorSweetAlert() {
+        errorSweetAlert = SweetAlertDialog(context, SweetAlertDialog.BUTTON_CONFIRM)
+
+        errorSweetAlert.getProgressHelper().setBarColor(Color.parseColor("#000000"))
+        errorSweetAlert.setTitleText("No Network Found")
+        errorSweetAlert.setCancelable(false)
+        errorSweetAlert.show();
+        errorSweetAlert.setConfirmButton("Ok", SweetAlertDialog.OnSweetClickListener {
+            errorSweetAlert.dismissWithAnimation()
+        })
+    }
+
+    private fun insertArticle(selectedArticle: Article) {
+        if (found) {
+            Toast.makeText(context, "Already Existed", Toast.LENGTH_LONG).show()
+        } else {
+            viewModel.insertArticle(selectedArticle!!)
+            binding.insertButton.setImageResource(R.drawable.is_fav_icon)
+            found = true
+            Toast.makeText(context, "Inserted", Toast.LENGTH_LONG).show()
+        }
+        Log.e("CheckExistance", found.toString())
+    }
+
+    private fun checkFavorits(articleUrl:String) {
+        viewModel.isExisted(articleUrl).observe(viewLifecycleOwner, Observer {
             if (it == true) {
                 found = true
                 binding.insertButton.setImageResource(R.drawable.is_fav_icon)
@@ -56,18 +100,14 @@ class SelectedArticleFragment : Fragment() {
             }
             Log.e("CheckExistance", found.toString())
         })
+    }
 
-        binding.insertButton.setOnClickListener {
-            if (found) {
-                Toast.makeText(context, "Already Existed", Toast.LENGTH_LONG).show()
-            } else {
-                viewModel.insertArticle(article!!)
-                binding.insertButton.setImageResource(R.drawable.is_fav_icon)
-                found = true
-                Toast.makeText(context, "Inserted", Toast.LENGTH_LONG).show()
+    private fun loadArticleUrl(articleUrl: String) {
+        binding.webview
+            .apply {
+                settings.javaScriptEnabled = true
+                webViewClient = WebViewClient()
+                loadUrl(articleUrl)
             }
-            Log.e("CheckExistance", found.toString())
-        }
-        return view
     }
 }

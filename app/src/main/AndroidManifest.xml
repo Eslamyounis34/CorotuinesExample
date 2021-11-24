@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.corotuinesexample">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,12 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CorotuinesExample">
-        <activity
-            android:name=".ui.FavouritesArticlesActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.ArticleActivity"
-            android:exported="true" />
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

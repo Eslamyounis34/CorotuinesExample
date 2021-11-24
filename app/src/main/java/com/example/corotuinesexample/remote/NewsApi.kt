@@ -13,7 +13,7 @@ interface NewsApi {
         @Query("apiKey") apiKey: String
     ): Response<NewsResponse>
 
-    @GET("")
+    @GET("/v2/everything")
     suspend fun getSearchResult(
         @Query("apiKey") apiKey: String,
         @Query("q") q: String,

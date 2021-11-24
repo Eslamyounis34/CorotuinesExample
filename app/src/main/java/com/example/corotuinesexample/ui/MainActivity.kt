@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.corotuinesexample.R
+import com.example.corotuinesexample.databinding.ActivityMainBinding
 import com.example.corotuinesexample.ui.adapters.NewsRecyclerView
 import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,11 +25,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var bottomNavigationView: BottomNavigationView
+   // private lateinit var binding:ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         bottomNavigationView = findViewById(R.id.bottom_nav)
         val navHostFragment =
