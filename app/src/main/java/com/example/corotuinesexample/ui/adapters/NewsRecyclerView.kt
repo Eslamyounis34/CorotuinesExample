@@ -1,13 +1,17 @@
 package com.example.corotuinesexample.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.corotuinesexample.R
 import com.example.corotuinesexample.databinding.NewsrecycleritemrowBinding
+import com.example.corotuinesexample.ui.fragments.BreakingNewsFragmentDirections
 import com.squareup.picasso.Picasso
 import com.younis.newapp.model.Article
 import com.younis.newapp.model.OnArticleListner
@@ -32,9 +36,15 @@ class NewsRecyclerView(private val articles: List<Article>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.newstitle.text = articles[position].title
-        Picasso.get().load(articles[position].urlToImage).into(holder.binding.newsimage)
+        Glide.with(holder.itemView.context)
+            .load(articles[position].urlToImage)
+            .diskCacheStrategy(DiskCacheStrategy.DATA) //optional
+            .placeholder(R.drawable.no_photo)  //optional
+            .error(R.drawable.no_photo)  //o
+            .into(holder.binding.newsimage)
         holder.binding.newrelativelayout.setOnClickListener {
             onItemClickListener?.onclick(articles[position]!!)
+           BreakingNewsFragmentDirections.actionBreakingNewsFragment2ToSelectedArticleFragment(articles[position])
         }
     }
 

@@ -8,7 +8,7 @@ import com.example.corotuinesexample.util.Constants
 
 class NewsRepo(private val db: NewsDao) {
 
-    suspend fun getFavoriteNews(): LiveData<List<Article>> =
+     fun getFavoriteNews(): LiveData<List<Article>> =
         db.articlesList()
 
 

@@ -19,13 +19,16 @@ import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.younis.newapp.model.Article
 import com.younis.newapp.model.OnArticleListner
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class MainActivity : AppCompatActivity() {
 
 
     private lateinit var navController: NavController
     private lateinit var bottomNavigationView: BottomNavigationView
-   // private lateinit var binding:ActivityMainBinding
+    // private lateinit var binding:ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

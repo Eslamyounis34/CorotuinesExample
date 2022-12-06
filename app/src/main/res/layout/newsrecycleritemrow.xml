@@ -20,8 +20,11 @@
                 android:id="@+id/newsimage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/newsimagetest" />
+                android:scaleType="fitCenter"
+                android:requiresFadingEdge="vertical"
+                android:adjustViewBounds="true"
+                android:fadingEdgeLength="30dp"
+                android:src="@drawable/no_photo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
