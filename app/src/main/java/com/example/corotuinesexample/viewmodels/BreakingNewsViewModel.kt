@@ -21,6 +21,9 @@ class BreakingNewsViewModel
     (private val repo: NewsApiRepo) : ViewModel() {
     val _response = MutableLiveData<NewsResponse>()
     var _existance = MutableLiveData<Boolean>()
+    val _searchResponse = MutableLiveData<NewsResponse>()
+    val searchResponse:LiveData<NewsResponse>
+    get() = _searchResponse
 
 
 
@@ -42,6 +45,8 @@ class BreakingNewsViewModel
         return _response
     }
 
+
+
     fun insertArticle(article: Article) {
         viewModelScope.launch {
             repo.insertArticle(article)
@@ -53,5 +58,18 @@ class BreakingNewsViewModel
             _existance.postValue(repo.checkExistBefore(url))
         }
         return _existance
+    }
+
+    fun searchResult(query: String) {
+        viewModelScope.launch {
+            repo.getSearchResult(query).let { response ->
+                if (response.isSuccessful) {
+                    _searchResponse.postValue(response.body())
+                } else {
+                    _searchResponse.postValue(response.body())
+                }
+
+            }
+        }
     }
 }

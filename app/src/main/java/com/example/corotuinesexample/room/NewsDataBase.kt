@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.younis.newapp.model.Article
 
-@Database(entities = [Article::class], version = 3 , exportSchema = false)
+@Database(entities = [Article::class], version = 5 , exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class NewsDataBase : RoomDatabase() {
     abstract fun articleDao(): NewsDao
@@ -24,6 +24,7 @@ abstract class NewsDataBase : RoomDatabase() {
                 INSTANCE = Room.databaseBuilder<NewsDataBase>(
                     context.applicationContext, NewsDataBase::class.java, "AppDB"
                 )
+                    .fallbackToDestructiveMigration()
                     .build()
             }
             return INSTANCE!!
