@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,12 +23,14 @@ import com.example.corotuinesexample.ui.adapters.NewsRecyclerView
 import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.younis.newapp.model.Article
 import com.younis.newapp.model.OnArticleListner
+import com.younis.newapp.model.com.example.corotuinesexample.viewmodels.BreakingNewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 
-
+@AndroidEntryPoint
 class BreakingNewsFragment : Fragment(), OnArticleListner {
 
-    lateinit var viewModel: NewsViewModel
+    private val viewModel: BreakingNewsViewModel by viewModels()
     lateinit var newsAdapter: NewsRecyclerView
     lateinit var binding: FragmentBreakingNewsBinding
     lateinit var sweetAlert: SweetAlertDialog
@@ -58,7 +61,6 @@ class BreakingNewsFragment : Fragment(), OnArticleListner {
             }
         }
         sweetAlert = SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE)
-        viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
 
         if (isNetworkAvailable()) {
             binding.nobreakingnewsdata.visibility = View.GONE
@@ -116,7 +118,7 @@ class BreakingNewsFragment : Fragment(), OnArticleListner {
 
     private fun getBreakingNews() {
         setupSweetAlert("loading")
-        viewModel.getArticlesList().observe(viewLifecycleOwner, Observer {
+        viewModel.getBreakingNews().observe(viewLifecycleOwner, Observer {
             binding.newsRecycler.apply {
                 adapter = NewsRecyclerView(it.articles)
                 newsAdapter = adapter as NewsRecyclerView

@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -23,14 +24,17 @@ import com.example.corotuinesexample.databinding.FragmentSelectedArticleBinding
 import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.younis.newapp.model.Article
+import com.younis.newapp.model.com.example.corotuinesexample.viewmodels.BreakingNewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class SelectedArticleFragment : Fragment() {
 
     val args: SelectedArticleFragmentArgs by navArgs()
     lateinit var errorSweetAlert: SweetAlertDialog
     lateinit var article: Article
-    lateinit var viewModel: NewsViewModel
+     val viewModel: BreakingNewsViewModel by viewModels()
     lateinit var binding: FragmentSelectedArticleBinding
     var found = false
     override fun onCreateView(
@@ -43,7 +47,6 @@ class SelectedArticleFragment : Fragment() {
         if (isNetworkAvailable()) {
             val article = args.article
 
-            viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
 
             checkFavorits(article!!.url.toString())
             loadArticleUrl(article!!.url.toString())

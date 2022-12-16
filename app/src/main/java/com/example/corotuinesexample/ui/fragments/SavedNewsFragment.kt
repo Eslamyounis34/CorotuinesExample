@@ -4,11 +4,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,10 +21,14 @@ import com.example.corotuinesexample.ui.adapters.NewsRecyclerView
 import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.younis.newapp.model.Article
 import com.younis.newapp.model.OnArticleListner
+import com.younis.newapp.model.com.example.corotuinesexample.viewmodels.BreakingNewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class SavedNewsFragment : Fragment(), OnArticleListner {
 
-    lateinit var viewModel: NewsViewModel
+    private val viewModel: BreakingNewsViewModel by viewModels()
     lateinit var newsAdapter: NewsRecyclerView
     lateinit var binding: FragmentSavedNewsBinding
     override fun onCreateView(
@@ -31,8 +37,10 @@ class SavedNewsFragment : Fragment(), OnArticleListner {
     ): View? {
         binding = FragmentSavedNewsBinding.inflate(layoutInflater)
         val view = binding.root
-        viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
 
+        viewModel.loadFavNews().observe(viewLifecycleOwner, Observer {
+            Log.e("TestFav", it.toString())
+        })
         if (isNetworkAvailable()) {
             getSavedNews()
         } else {
@@ -50,7 +58,8 @@ class SavedNewsFragment : Fragment(), OnArticleListner {
     }
 
     private fun isNetworkAvailable(): Boolean {
-        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE)
+        val connectivityManager =
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE)
         return if (connectivityManager is ConnectivityManager) {
             val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
             networkInfo?.isConnected ?: false
@@ -58,7 +67,7 @@ class SavedNewsFragment : Fragment(), OnArticleListner {
     }
 
     private fun getSavedNews() {
-        viewModel.favoriteArticlesList.observe(viewLifecycleOwner, Observer {
+        viewModel.loadFavNews().observe(viewLifecycleOwner, Observer {
             binding.favoritesRecycler.apply {
                 adapter = NewsRecyclerView(it)
                 newsAdapter = adapter as NewsRecyclerView
@@ -67,3 +76,5 @@ class SavedNewsFragment : Fragment(), OnArticleListner {
         })
     }
 }
+
+

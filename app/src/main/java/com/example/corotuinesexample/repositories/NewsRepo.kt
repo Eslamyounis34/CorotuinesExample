@@ -8,15 +8,15 @@ import com.example.corotuinesexample.util.Constants
 
 class NewsRepo(private val db: NewsDao) {
 
-     fun getFavoriteNews(): LiveData<List<Article>> =
-        db.articlesList()
+//     fun getFavoriteNews(): LiveData<List<Article>> =
+//        db.articlesList()
 
-
-    suspend fun getBreakingNews() =
-        RetroInstance.api.getBreakingNews("us", "business", Constants.API_KEY)
-
-    suspend fun getSearchResult(query:String)=
-        RetroInstance.api.getSearchResult(Constants.API_KEY,query,"popularity")
+//
+//    suspend fun getBreakingNews() =
+//        RetroInstance.api.getBreakingNews("us", "business", Constants.API_KEY)
+//
+//    suspend fun getSearchResult(query:String)=
+//        RetroInstance.api.getSearchResult(Constants.API_KEY,query,"popularity")
 
     suspend fun insertArticle(article: Article) {
 

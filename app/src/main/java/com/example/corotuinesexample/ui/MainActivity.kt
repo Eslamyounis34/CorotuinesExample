@@ -22,7 +22,6 @@ import com.younis.newapp.model.OnArticleListner
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-
 class MainActivity : AppCompatActivity() {
 
 
