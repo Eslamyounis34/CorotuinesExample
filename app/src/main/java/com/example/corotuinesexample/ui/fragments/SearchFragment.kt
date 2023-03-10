@@ -11,12 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.corotuinesexample.databinding.FragmentSearchBinding
 import com.example.corotuinesexample.ui.adapters.NewsRecyclerView
-import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.younis.newapp.model.Article
 import com.younis.newapp.model.OnArticleListner
 import com.younis.newapp.model.com.example.corotuinesexample.viewmodels.BreakingNewsViewModel

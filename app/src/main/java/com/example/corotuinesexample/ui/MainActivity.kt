@@ -1,24 +1,13 @@
 package com.example.corotuinesexample.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.example.corotuinesexample.R
-import com.example.corotuinesexample.databinding.ActivityMainBinding
-import com.example.corotuinesexample.ui.adapters.NewsRecyclerView
-import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.younis.newapp.model.Article
-import com.younis.newapp.model.OnArticleListner
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

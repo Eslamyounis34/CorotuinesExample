@@ -12,20 +12,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.example.corotuinesexample.R
 import com.example.corotuinesexample.databinding.FragmentBreakingNewsBinding
 import com.example.corotuinesexample.ui.adapters.NewsRecyclerView
-import com.example.corotuinesexample.viewmodels.NewsViewModel
 import com.younis.newapp.model.Article
 import com.younis.newapp.model.OnArticleListner
 import com.younis.newapp.model.com.example.corotuinesexample.viewmodels.BreakingNewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_breaking_news.*
 
 @AndroidEntryPoint
 class BreakingNewsFragment : Fragment(), OnArticleListner {

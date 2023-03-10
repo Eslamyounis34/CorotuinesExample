@@ -34,7 +34,6 @@
                 android:requiresFadingEdge="vertical"
                 android:cacheColorHint="#000000"
                 android:orientation="vertical"
-                android:fadingEdgeLength="70dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

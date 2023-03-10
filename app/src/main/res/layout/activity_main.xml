@@ -9,7 +9,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav"
+        android:layout_below="@id/bottom_nav"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:navGraph="@navigation/nav_graph"
         app:defaultNavHost="true"
@@ -19,11 +19,11 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:background="#000"
         app:itemIconTint="@color/bottomitemscolor"
-        app:itemTextColor="@color/bottomitemscolor"
         app:itemRippleColor="@android:color/transparent"
+        app:itemTextColor="@color/bottomitemscolor"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:menu="@menu/bottom_menu" />
 
